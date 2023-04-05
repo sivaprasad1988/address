@@ -1,0 +1,23 @@
+  Address:
+    type: Extbase
+    extension: TtAddress
+    plugin: ListView
+    routes:
+      - routePath: '/{address-title}'
+        _controller: 'Address::show'
+        _arguments:
+          address-title: address
+      - routePath: '/page-{page}'
+        _controller: 'Address::list'
+        _arguments:
+          page: 'currentPage'
+    defaultController: 'Address::list'
+    aspects:
+      address-title:
+        type: PersistedAliasMapper
+        tableName: tt_address
+        routeFieldName: slug
+      page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '100'
